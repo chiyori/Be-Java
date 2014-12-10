@@ -69,4 +69,11 @@ public class People
             System.out.println(i);
         }
     }
+    
+    public boolean NeedGivenItem(Item i){
+        if (itemsNeeded.contains(i)){
+            return true;
+        }
+        return false;
+    }
 }
