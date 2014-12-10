@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 
 /**
- * Write a description of class People here.
+ * Class for the People we can find in the game
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Sarah Santal
+ * @version 1
  */
 public class People
 {
@@ -16,7 +16,7 @@ public class People
     private ArrayList<Item> itemsTheyHave;
 
     /**
-     * Constructor for objects of class People
+     * Constructor without any items
      * @param name 
      */
     public People(String name)
@@ -27,21 +27,40 @@ public class People
         itemsTheyHave = new ArrayList<>();
     }
     
+    /**
+     * Contructor with items needed or items had
+     * @param name
+     * @param ain arrayList of items needed
+     * @param aith arrayList of items they have
+     */
+    
     public People(String name, ArrayList<Item> ain, ArrayList<Item> aith){
         this.name=name;
         dead=false;
         itemsNeeded = ain;
         itemsTheyHave = aith;
     }
-
+    
+    /**
+     * 
+     * @return name of the person
+     */
     public String getName (){
         return name;
     }
     
+    /**
+     * 
+     * @return boolean to know if the character is dead
+     */
     public Boolean isDead (){
         return dead;
     }
     
+    /**
+     * ToString
+     * @return string of the description of a character
+     */
     @Override
     public String toString () {
         String concat=name+" (";
@@ -55,25 +74,38 @@ public class People
         return concat;
     }
     
+    /**
+     * Add an item in the arrayList ItemNeeded
+     * @param i item to put in the list
+     */
     public void addItemNeeded(Item i) {
         itemsNeeded.add(i);
     }
     
+    /**
+     * Add an item in the arrayList ItemTheyHave
+     * @param i item to put in the List
+     */
     public void addItemTheyHave(Item i){
         itemsTheyHave.add(i);
     }
     
+    /**
+     * display items needed by the character
+     */
     public void printItemsNeeded(){
-        System.out.println("Objet demandé : ");
+        System.out.println("Item needed : ");
         for(Item i : itemsNeeded){
             System.out.println(i);
         }
     }
     
+    /**
+     * Items needed by the character ?
+     * @param i item we want give to the character
+     * @return Boolean to know if he want it
+     */
     public boolean NeedGivenItem(Item i){
-        if (itemsNeeded.contains(i)){
-            return true;
-        }
-        return false;
+        return itemsNeeded.contains(i);
     }
 }
