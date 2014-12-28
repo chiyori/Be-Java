@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
+import java.io.Serializable;
 
 /**
  * Class Room - a room in an adventure game.
@@ -15,11 +16,11 @@ import java.util.HashMap;
  * @author Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
-public class Room {
+public class Room implements Serializable {
 
     private String name;
     private String description;
-    private HashMap<String, Exit> roomExits;
+    private TreeMap<String, Exit> roomExits;
     private ArrayList<Item> items;
     private ArrayList<People> peoples;
 
@@ -30,7 +31,7 @@ public class Room {
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
-        this.roomExits = new HashMap<>();
+        this.roomExits = new TreeMap<>();
         this.items = new ArrayList<>();
         this.peoples = new ArrayList<>();
     }
@@ -53,12 +54,24 @@ public class Room {
      * Ajout de sortie à une salle (sortie sans clé)
      * @param room
      */
-    public void addSimpleExits(Room room) {
+    public void addExit(Room room) {
         roomExits.put(room.getName(), new Exit(this.getName(), room));
             // Key du Hashmap est le nom de la salle 
         // Mettre la salle reliée en deuxième à chaque fois
     }
 
+    /**
+     * Ajout de sortie à une salle (ayant besoin d'une clé)
+     * @param room 
+     * @param l
+     * @param k 
+     */
+    public void addExit(Room room, Lock l, Key k) {
+        roomExits.put(room.getName(), new MagicalExit(this.getName(),room,l,k));
+            // Key du Hashmap est le nom de la salle 
+        // Mettre la salle reliée en deuxième à chaque fois
+    }
+    
     /**
      *
      * @param exitRoom Nom de la ou des salles ayant une sortie commune avec la

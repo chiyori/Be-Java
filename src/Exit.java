@@ -1,3 +1,4 @@
+import java.io.Serializable;
 
 /**
  * Write a description of class Exit here.
@@ -5,7 +6,7 @@
  * @author Arthur PERRAD
  * @version 14/11/14
  */
-public class Exit {
+public class Exit implements Serializable{
     
     private String currentRoom;
     private Room room;

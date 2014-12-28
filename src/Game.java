@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.io.Serializable;
+
 
 
 /**
@@ -17,34 +19,55 @@ import java.util.ArrayList;
  * @author Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
-public class Game {
+public class Game implements Serializable {
+    
+    final private transient Parser parser;
+    private Player player;
+    private Room[] map;
 
-    final private Parser parser;
-    final private Player player;
+    public Room[] getMap() {
+        return map;
+    }
 
     /**
-     * Cr�er un jeu et initialisation de la map.
+     * Créer un jeu et initialisation de la map.
      */
     public Game() {
+        Room currentRoom;
+        currentRoom = initialize();
         parser = new Parser();
-        player = new Player("Player", createRooms());
+        player = new Player("Player", currentRoom);
+    }
+    
+    public Game(GameSave g){
+        parser = new Parser();
+        player = g.getGame().getPlayer();
+        this.map = g.getGame().getMap();
+    }
+    public Game(Game g){
+        parser = new Parser();
+        player = g.player;
+        this.map = g.map;
+    }
+    public Player getPlayer() {
+        return player;
     }
 
     /**
      * Creation de toutes les salles, et des portes entre elles
      */
-    private Room createRooms() {
+    private Room initialize() {
         Room elevator, ground, basement, first, room1, room2, room3, room4, room5, room6, kitchen, cafetaria, psychologistOffice, waitingRoom, staffRoom, heatingRoom, surgery, morgue;
 
         // Creation des salles
-        ground = new Room("The hall of the hospital", "");
-        first = new Room("Firstfloor", "");
-        basement = new Room("Hall of the basement", "");
+        ground = new Room("Ground floor", "");
+        first = new Room("First floor", "");
+        basement = new Room("Basement floor", "");
         elevator = new Room("Elevator", "");
-        room1 = new Room("Room1", "");
-        room2 = new Room("Room2", "");
-        room3 = new Room("Room3", "");
-        room4 = new Room("Room4", "");
+        room1 = new Room("Room 1", "");
+        room2 = new Room("Room 2", "");
+        room3 = new Room("Room 3", "");
+        room4 = new Room("Room 4", "");
         room5 = new Room("Room 5", "");
         room6 = new Room("Room 6", "");
         kitchen = new Room("Kitchen", "");
@@ -56,60 +79,66 @@ public class Game {
         surgery = new Room("Surgery", "");
         morgue = new Room("Morgue", "");
 
-        // Faire les portes dans l'autre sens aussi , je crois que c'est déjà
-        //fait
-        elevator.addSimpleExits(first);
-        elevator.addSimpleExits(ground);
-        elevator.addSimpleExits(basement);
-        ground.addSimpleExits(elevator);
-        ground.addSimpleExits(psychologistOffice);
-        ground.addSimpleExits(waitingRoom);
-        ground.addSimpleExits(cafetaria);
-        basement.addSimpleExits(elevator);
-        basement.addSimpleExits(heatingRoom);
-        basement.addSimpleExits(morgue);
-        basement.addSimpleExits(surgery);
-        first.addSimpleExits(room1);
-        first.addSimpleExits(room2);
-        first.addSimpleExits(room3);
-        first.addSimpleExits(room4);
-        first.addSimpleExits(room5);
-        first.addSimpleExits(room6);
-        first.addSimpleExits(elevator);
-        room1.addSimpleExits(first);
-        room2.addSimpleExits(first);
-        room3.addSimpleExits(first);
-        room4.addSimpleExits(first);
-        room5.addSimpleExits(first);
-        room6.addSimpleExits(first);
-        kitchen.addSimpleExits(cafetaria);
-        cafetaria.addSimpleExits(kitchen);
-        cafetaria.addSimpleExits(ground);
-        psychologistOffice.addSimpleExits(ground);
-        waitingRoom.addSimpleExits(ground);
-        waitingRoom.addSimpleExits(staffRoom);
-        staffRoom.addSimpleExits(waitingRoom);
-        heatingRoom.addSimpleExits(basement);
-        surgery.addSimpleExits(basement);
-        morgue.addSimpleExits(basement);
+        //Ajout des liens entre les salles
+        elevator.addExit(first);
+        elevator.addExit(ground);
+        elevator.addExit(basement);
+        ground.addExit(elevator);
+        ground.addExit(psychologistOffice);
+        ground.addExit(waitingRoom);
+        ground.addExit(cafetaria);
+        basement.addExit(elevator);
+        basement.addExit(heatingRoom);
+        basement.addExit(morgue);
+        basement.addExit(surgery);
+        first.addExit(room1);
+        first.addExit(room2);
+        first.addExit(room3);
+        first.addExit(room4);
+        first.addExit(room5);
+        first.addExit(room6);
+        first.addExit(elevator);
+        room1.addExit(first);
+        room2.addExit(first);
+        room3.addExit(first);
+        room4.addExit(first);
+        room5.addExit(first);
+        room6.addExit(first);
+        kitchen.addExit(cafetaria);
+        cafetaria.addExit(kitchen);
+        cafetaria.addExit(ground);
+        psychologistOffice.addExit(ground);
+        waitingRoom.addExit(ground);
+        waitingRoom.addExit(staffRoom);
+        staffRoom.addExit(waitingRoom);
+        heatingRoom.addExit(basement);
+        surgery.addExit(basement);
+        morgue.addExit(basement);
 
-        //Ajout des items
+        //Création des Item
         Item fleur = new Item("Fleur",0);
         
-        //placement des items dans les rooms
+        //Ajout des items dans les Room
         room1.addItem(fleur);
         
-        //placement des items dans des liste et création de personnage dans les salles
+        //Création des listes d'Item des People
         ArrayList<Item> itemsNeeded = new ArrayList<>();
         itemsNeeded.add(fleur);
         ArrayList<Item> itemsTheyHave = new ArrayList<>();
+        
+        //Création des People dans les Room
         room2.addPeople(new People("mamieItem",itemsNeeded,itemsTheyHave));
         itemsNeeded.clear();
         itemsTheyHave.clear();
-
-        return room1;  //D�marrage du jeu dans la salle room1
+        
+        //Création du tableau de Room utilisé pour la sauvegarde
+        this.map = new Room [] {elevator, ground, basement, first, room1, room2, room3, 
+        room4, room5, room6, kitchen, cafetaria, psychologistOffice, 
+        waitingRoom, staffRoom, heatingRoom, surgery, morgue};
+        
+        return room1;
     }
-
+        
     /**
      * Jeu en lui-meme, boucle tant qu'on ne lui dit pas d'arreter
      */
@@ -121,14 +150,15 @@ public class Game {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
+      
         System.out.println("Thank you for playing.  Good bye.");
+      
     }
 
     /**
      * Affichage du message de bienvenue
      */
     private void printWelcome() {
-        System.out.println();
         System.out.println("Welcome to the hospital!");
         System.out.println("Have fun and kill peoples !");
         System.out.println("Type 'help' if you need help.");
@@ -137,9 +167,9 @@ public class Game {
     }
 
     /**
-     * Donner une commande qui va �tre executer
+     * Donner une commande qui va être executer
      *
-     * @param command Commande � effectuer
+     * @param command Commande à effectuer
      * @return true Si le jeu est fini, sinon false.
      */
     private boolean processCommand(Command command) {
@@ -183,7 +213,7 @@ public class Game {
             return;
         }
 
-        String direction = command.getSecondWord();
+        String direction = command.getOtherWord();
 
         if (player.getRoom().ExitsIsEquals(direction)) {
             // Try to leave current room.
@@ -217,11 +247,13 @@ public class Game {
      * quitte le jeu
      * @return true Pour quitter le jeu, sinon false.
      */
-    private boolean quit(Command command) {
-        if (command.hasSecondWord()) {
+   private boolean quit(Command command) 
+    {
+        if(command.hasSecondWord() || command.hasThirdWord()) {
             System.out.println("Quit what?");
             return false;
-        } else {
+        }
+        else {
             return true;  // signal that we want to quit
         }
     }

@@ -1,11 +1,13 @@
 import java.util.ArrayList;
+import java.io.Serializable;
+
 /**
  * Write a description of class Player here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Player
+public class Player implements Serializable
 {
     private String name;
     private Room currentRoom;

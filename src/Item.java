@@ -1,10 +1,11 @@
+import java.io.Serializable;
 
 /**
  * Class designed to represent an item
  * @author
  * @version
  */
-public class Item
+public class Item implements Serializable
 {
 
     private String itemDescription;
