@@ -129,10 +129,12 @@ public class Game implements Serializable {
         itemsNeeded.add(fleur);
         ArrayList<Item> itemsTheyHave = new ArrayList<>();
         
+        //Creation Dialogue
+        Dialog d = new Dialog("blabla");
+        d.setItemGive(fleur);
+        
         //Création des People dans les Room
-        room2.addPeople(new People("mamieItem",itemsNeeded,itemsTheyHave));
-        itemsNeeded.clear();
-        itemsTheyHave.clear();
+        room2.addPeople(new People("mamieItem",d));
         
         //Création du tableau de Room utilisé pour la sauvegarde
         this.map = new Room [] {elevator, ground, basement, first, room1, room2, room3, 

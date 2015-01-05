@@ -16,26 +16,17 @@ public class People implements Serializable
     // instance variables - replace the example below with your own
     private String name;
     private Boolean dead;
-    private ArrayList<Item> itemsNeeded;
-    private ArrayList<Item> itemsTheyHave;
+    private Dialog currentDialog;
 
     /**
      * Constructor for objects of class People
      * @param name 
      */
-    public People(String name)
+    public People(String name, Dialog d)
     {
         this.name=name;
         dead=false;
-        itemsNeeded = new ArrayList<>();
-        itemsTheyHave = new ArrayList<>();
-    }
-    
-    public People(String name, ArrayList<Item> ain, ArrayList<Item> aith){
-        this.name=name;
-        dead=false;
-        itemsNeeded = ain;
-        itemsTheyHave = aith;
+        currentDialog=d;
     }
 
     public String getName (){
@@ -52,25 +43,6 @@ public class People implements Serializable
         if (isDead())
             concat+="dead)";
         else concat+="alive)";
-        for(Item i : itemsNeeded){
-            concat+="\n";
-            concat+=i;
-        }
         return concat;
-    }
-    
-    public void addItemNeeded(Item i) {
-        itemsNeeded.add(i);
-    }
-    
-    public void addItemTheyHave(Item i){
-        itemsTheyHave.add(i);
-    }
-    
-    public void printItemsNeeded(){
-        System.out.println("Objet demandé : ");
-        for(Item i : itemsNeeded){
-            System.out.println(i);
-        }
     }
 }
