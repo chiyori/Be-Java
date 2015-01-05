@@ -14,7 +14,7 @@ public class Dialog {
      le string est la clef vers un dialogue définit.
      */
     private TreeMap<String, Dialog> nextDialogs;
-
+    
     /*String Blabla paroles du personnage.
      Choses dites par le personnage.
      */
@@ -31,6 +31,14 @@ public class Dialog {
         this.blabla = blabla;
         this.itemGive = null;
         this.itemNeed = null;
+        
+        
+        
+    //PEUNEZ
+        int i = 0;
+        
+        
+        
     }
 
     public String getBlabla() {
