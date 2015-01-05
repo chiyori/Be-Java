@@ -30,15 +30,7 @@ public class Dialog {
         this.nextDialogs = new TreeMap<>();
         this.blabla = blabla;
         this.itemGive = null;
-        this.itemNeed = null;
-        
-        
-        
-    //PEUNEZ
-        int i = 0;
-        
-        
-        
+        this.itemNeed = null;  
     }
 
     public String getBlabla() {
