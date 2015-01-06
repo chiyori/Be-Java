@@ -24,7 +24,7 @@ public class Room implements Serializable {
     private String description;
     private TreeMap<String, Exit> roomExits;
     private ArrayList<Item> items;
-    private ArrayList<People> peoples;
+    private ArrayList<People> tabPeople;
 
     /**
      * @param name Nom de la salle
@@ -35,7 +35,7 @@ public class Room implements Serializable {
         this.description = description;
         this.roomExits = new TreeMap<>();
         this.items = new ArrayList<>();
-        this.peoples = new ArrayList<>();
+        this.tabPeople = new ArrayList<>();
     }
 
     /**
@@ -182,15 +182,19 @@ public class Room implements Serializable {
     * @param p : personne à ajouter 
     */
     public void addPeople(People p){
-        peoples.add(p);
+        tabPeople.add(p);
+    }
+
+    public ArrayList<People> getTabPeople() {
+        return tabPeople;
     }
     
     /*
     *Affichage de la liste de personnage
     */
-    public void printPeoplesList() {
+    public void printTabPeople() {
         System.out.println("Characters : ");
-        for (People p : peoples){
+        for (People p : tabPeople){
             System.out.println(p.getName());
         }
     }
