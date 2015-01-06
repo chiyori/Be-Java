@@ -1,6 +1,5 @@
 package be;
 
-import java.util.ArrayList;
 import java.io.Serializable;
 
 /**
@@ -48,12 +47,16 @@ public class People implements Serializable {
         return dead;
     }
 
-    public void setCurrentDialog(String blabla) {
-        this.currentDialog = new Dialog(blabla);
+    public void setCurrentDialog(Dialog currentDialog) {
+        this.currentDialog = currentDialog;
     }
 
     public void setDead(Boolean dead) {
         this.dead = dead;
+    }
+
+    public void addCurrentDialog(String blabla) {
+        this.currentDialog = new Dialog(blabla);
     }
 
     @Override
@@ -64,7 +67,7 @@ public class People implements Serializable {
         } else if (getCurrentDialog() != null) {
             concat += " says : " + this.currentDialog.getBlabla();
         } else {
-            concat+= " isn't dead, but doesn't say anything (what a jerk).";
+            concat += " isn't dead, but doesn't say anything (what a jerk).";
         }
         return concat;
     }
