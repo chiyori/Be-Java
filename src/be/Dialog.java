@@ -1,6 +1,5 @@
 package be;
 
-
 import java.util.TreeMap;
 
 /**
@@ -8,6 +7,7 @@ import java.util.TreeMap;
  * @author Arsène G.
  */
 public class Dialog {
+
     /*Treemap du dialogue.
      Les dialogues sont représentés par un arbre de dialogues menant les uns
      aux autres.
@@ -26,13 +26,20 @@ public class Dialog {
     private Item itemNeed;
     private Item itemGive;
 
+    //Boolean indiquant si le dialogue actuel Permet de tuer le personnage avec
+    //acceptation
+    private boolean wantToDie;
+
     public Dialog(String blabla) {
         this.nextDialogs = new TreeMap<>();
         this.blabla = blabla;
         this.itemGive = null;
         this.itemNeed = null;
+        this.wantToDie = false;
     }
 
+    //--------------------------------------------------------------------------
+    //Methodes "get" :
     public String getBlabla() {
         return blabla;
     }
@@ -48,9 +55,10 @@ public class Dialog {
     public TreeMap<String, Dialog> getNextDialogs() {
         return nextDialogs;
     }
-    
+
     /**
      * Donne un tableau des keys des dialogues suivants
+     *
      * @return String[] un tableau des prochaines keys.
      */
     public String[] getNextDialogsKeys() {
@@ -66,6 +74,16 @@ public class Dialog {
         return TabString;
     }
 
+    public boolean isWantToDie() {
+        return wantToDie;
+    }
+
+    //--------------------------------------------------------------------------
+    //Méthodes 'set' :
+    public void setWantToDie(boolean wantToDie) {
+        this.wantToDie = wantToDie;
+    }
+
     public void setBlabla(String blabla) {
         this.blabla = blabla;
     }
@@ -78,6 +96,8 @@ public class Dialog {
         this.itemNeed = itemNeed;
     }
 
+    //--------------------------------------------------------------------------
+    //Méthodes autres :
     /**
      * Ajout d'une feuille à l'arbre des dialogues
      *

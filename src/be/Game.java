@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 //@TODO Description des Rooms, ajout des personnages dans les Rooms et leurs objets
-// @TODO Faire marcher les magicExits
+//@TODO Faire marcher les magicExits
 
 /**
  * This class is the main class of the "World of Zuul" application. "World of
@@ -23,7 +23,7 @@ import java.io.Serializable;
  * @version 2006.03.30
  */
 public class Game implements Serializable {
-    
+
     final private transient Parser parser;
     private Player player;
     private Room[] map;
@@ -41,17 +41,25 @@ public class Game implements Serializable {
         parser = new Parser();
         player = new Player("Player", currentRoom);
     }
-    
-    public Game(GameSave g){
+
+    public Game(GameSave g) {
         parser = new Parser();
         player = g.getGame().getPlayer();
         this.map = g.getGame().getMap();
     }
-    public Game(Game g){
+
+    public Game(Game g) {
         parser = new Parser();
         player = g.player;
         this.map = g.map;
     }
+
+    public Game(Player player, Room[] map) {
+        parser = new Parser();
+        this.player = player;
+        this.map = map;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -63,16 +71,26 @@ public class Game implements Serializable {
         Room elevator, ground, basement, first, room1, room2, room3, room4, room5, room6, kitchen, cafetaria, psychologistOffice, waitingRoom, staffRoom, heatingRoom, surgery, morgue;
 
         // Creation des salles
-        ground = new Room("Ground floor", "");
-        first = new Room("First floor", "");
-        basement = new Room("Basement floor", "");
-        elevator = new Room("Elevator", "");
-        room1 = new Room("Room 1", "");
-        room2 = new Room("Room 2", "");
-        room3 = new Room("Room 3", "");
-        room4 = new Room("Room 4", "");
-        room5 = new Room("Room 5", "");
-        room6 = new Room("Room 6", "");
+        ground = new Room("Ground floor", "Beautiful corridor with many posters "
+                + "and plants");
+        first = new Room("First floor", "Beautiful corridor with many posters "
+                + "and plants");
+        basement = new Room("Basement floor", "It's not very friendly here");
+        elevator = new Room("Elevator", "It's just an elevator with many buttons");
+        room1 = new Room("Room 1", "A small room, with a bed, toilet and TV. "
+                + "It's very .... ORANGE !\nOh ! There is a football game on "
+                + "TV ! GO REDS !");
+        room2 = new Room("Room 2", "A small room, with bed, toilet and TV. "
+                + "There is also an empty vase.");
+        room3 = new Room("Room 3", "A small room, with a bed, toilet and TV.");
+        room4 = new Room("Room 4", "A small room, with a bed, toilet and TV. "
+                + "Huuuuh,it smells male !");
+        room5 = new Room("Room 5", "A small room, with a bed, toilet and TV. "
+                + "Huuuuh what an horrible smell ! What happened here ?!");
+        room6 = new Room("Room 6", "A small room, with a bed, toilet and TV. "
+                + "It smells of death here");
+        
+        //TODO Description
         kitchen = new Room("Kitchen", "");
         cafetaria = new Room("Cafetaria", "");
         psychologistOffice = new Room("Psychologist Office", "");
@@ -82,6 +100,12 @@ public class Game implements Serializable {
         surgery = new Room("Surgery", "It's not a very clean room, there is blood EVERYWHERE !");
         morgue = new Room("Morgue", "");
 
+        //Creation des portes avec clés et serrures 
+        //
+        //
+        //
+        
+        
         //Ajout des liens entre les salles
         elevator.addExit(first);
         elevator.addExit(ground);
@@ -119,29 +143,52 @@ public class Game implements Serializable {
         morgue.addExit(basement);
 
         //Création des Item
-        Item fleur = new Item("Fleur",0);
-        
+        Item fleur = new Item("Fleur", 0);
+
         //Ajout des items dans les Room
         room1.addItem(fleur);
-        
-        //Création des listes d'Item des People
-        ArrayList<Item> itemsNeeded = new ArrayList<>();
-        itemsNeeded.add(fleur);
-        ArrayList<Item> itemsTheyHave = new ArrayList<>();
-        
+
         //Création des People dans les Room
-        room2.addPeople(new People("mamieItem",itemsNeeded,itemsTheyHave));
-        itemsNeeded.clear();
-        itemsTheyHave.clear();
+        room1.addPeople(new People("Dr Connor"));
+        room2.addPeople(new People("GrandMa"));
+        room2.addPeople(new People("GrandPa"));
+        room3.addPeople(new People("Kevin"));
+        room4.addPeople(new People("Brenda"));
+        room4.addPeople(new People("Many guys"));
+        room5.addPeople(new People("Nurse Helene"));
+        room5.addPeople(new People("Michael")); //Diarrhea man 
+        room6.addPeople(new People("Proctologist"));
+        room6.addPeople(new People("Karl")); //Dead guy of an urinary tract infection
+        psychologistOffice.addPeople(new People("Psychologist"));
+        psychologistOffice.addPeople(new People("Tom")); //Crazy patient that wants to kill you
+        cafetaria.addPeople(new People("Waitress Lynda"));
+        cafetaria.addPeople(new People("Ryan")); //Hate food
+        cafetaria.addPeople(new People("Abigail")); //Like food
+        kitchen.addPeople(new People("Chef Joshua"));
+        kitchen.addPeople(new People("Cook Nancy"));
+        kitchen.addPeople(new People("Cook Edward"));
+        waitingRoom.addPeople(new People("Jean-Louis")); //The woodcutter
+        waitingRoom.addPeople(new People("Jack")); //The electrician
+               
         
+        waitingRoom.addPeople(new People("Victoria")); //Bored
+        staffRoom.addPeople(new People("Intern George")); //Bored intern
+        staffRoom.addPeople(new People("Dr McCoy")); //Studying doctor
+        heatingRoom.addPeople(new People("Mecanician Henry")); //alcoholic
+        surgery.addPeople(new People("Chirurgian Albert"));
+        surgery.addPeople(new People("Nurse Mary"));
+        surgery.addPeople(new People("John"));
+        morgue.addPeople(new People("Medical Examiner Igor")); // Medical Examiner ?
+        morgue.addPeople(new People("Olivia")); // Patient
+
         //Création du tableau de Room utilisé pour la sauvegarde
-        this.map = new Room [] {elevator, ground, basement, first, room1, room2, room3, 
-        room4, room5, room6, kitchen, cafetaria, psychologistOffice, 
-        waitingRoom, staffRoom, heatingRoom, surgery, morgue};
-        
+        this.map = new Room[]{elevator, ground, basement, first, room1, room2, room3,
+            room4, room5, room6, kitchen, cafetaria, psychologistOffice,
+            waitingRoom, staffRoom, heatingRoom, surgery, morgue};
+
         return room1;
     }
-        
+
     /**
      * Jeu en lui-meme, boucle tant qu'on ne lui dit pas d'arreter
      */
@@ -153,9 +200,11 @@ public class Game implements Serializable {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-      
+
         System.out.println("Thank you for playing.  Good bye.");
-      
+        GameSave save = new GameSave(new Game(getPlayer(), getMap()));
+        save.serialize("default.txt");
+        System.exit(0);
     }
 
     /**
@@ -194,6 +243,7 @@ public class Game implements Serializable {
             System.out.println(player.getRoom().getDescription());
             player.getRoom().printPossibleExits();
             player.getRoom().printItemsList();
+            player.getRoom().printTabPeople();
         } else if (commandWord.equals("inventory")) {
             player.printItemsList();
         } else if (commandWord.equals("pick")) {
@@ -248,21 +298,21 @@ public class Game implements Serializable {
     /**
      * Si quit entr�, check s'il y a un deuxième mot, si ce n'est pas le cas on
      * quitte le jeu
+     *
      * @return true Pour quitter le jeu, sinon false.
      */
-   private boolean quit(Command command) 
-    {
-        if(command.hasSecondWord() || command.hasThirdWord()) {
+    private boolean quit(Command command) {
+        if (command.hasSecondWord() || command.hasThirdWord()) {
             System.out.println("Quit what?");
             return false;
-        }
-        else {
+        } else {
             return true;  // signal that we want to quit
         }
     }
 
     /**
      * Commande pour recupérer un objet
+     *
      * @param command Commande à effectuer
      */
     private void pick(Command command) {
