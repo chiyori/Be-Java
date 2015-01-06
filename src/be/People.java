@@ -3,74 +3,70 @@ package be;
 import java.util.ArrayList;
 import java.io.Serializable;
 
-
-
 /**
- * Write a description of class People here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Arsène and Sarah
  */
-public class People implements Serializable
-{
-    // instance variables - replace the example below with your own
+public class People implements Serializable {
+
+    // instance variables
     private String name;
     private Boolean dead;
-    private ArrayList<Item> itemsNeeded;
-    private ArrayList<Item> itemsTheyHave;
+    private Dialog currentDialog;
 
     /**
      * Constructor for objects of class People
-     * @param name 
+     *
+     * @param name nom du personnage
      */
-    public People(String name)
-    {
-        this.name=name;
-        dead=false;
-        itemsNeeded = new ArrayList<>();
-        itemsTheyHave = new ArrayList<>();
-    }
-    
-    public People(String name, ArrayList<Item> ain, ArrayList<Item> aith){
-        this.name=name;
-        dead=false;
-        itemsNeeded = ain;
-        itemsTheyHave = aith;
+    public People(String name) {
+        this.name = name;
+        this.dead = false;
+        this.currentDialog = null;
     }
 
-    public String getName (){
+    /**
+     * Constructor for objects of class People
+     *
+     * @param name nom du personnage
+     * @param blabla premier dialogue du personnage
+     */
+    public People(String name, String blabla) {
+        this.name = name;
+        this.dead = false;
+        this.currentDialog = new Dialog(blabla);
+    }
+
+    public String getName() {
         return name;
     }
-    
-    public Boolean isDead (){
+
+    public Dialog getCurrentDialog() {
+        return currentDialog;
+    }
+
+    public Boolean isDead() {
         return dead;
     }
-    
+
+    public void setCurrentDialog(String blabla) {
+        this.currentDialog = new Dialog(blabla);
+    }
+
+    public void setDead(Boolean dead) {
+        this.dead = dead;
+    }
+
     @Override
-    public String toString () {
-        String concat=name+" (";
-        if (isDead())
-            concat+="dead)";
-        else concat+="alive)";
-        for(Item i : itemsNeeded){
-            concat+="\n";
-            concat+=i;
+    public String toString() {
+        String concat = name;
+        if (isDead()) {
+            concat += " is dead.";
+        } else if (getCurrentDialog() != null) {
+            concat += " says : " + this.currentDialog.getBlabla();
+        } else {
+            concat+= " isn't dead, but doesn't say anything (what a jerk).";
         }
         return concat;
     }
-    
-    public void addItemNeeded(Item i) {
-        itemsNeeded.add(i);
-    }
-    
-    public void addItemTheyHave(Item i){
-        itemsTheyHave.add(i);
-    }
-    
-    public void printItemsNeeded(){
-        System.out.println("Objet demandé : ");
-        for(Item i : itemsNeeded){
-            System.out.println(i);
-        }
-    }
+
 }
