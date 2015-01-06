@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 //@TODO Description des Rooms, ajout des personnages dans les Rooms et leurs objets
 //@TODO Faire marcher les magicExits
-
 /**
  * This class is the main class of the "World of Zuul" application. "World of
  * Zuul" is a very simple, text based adventure game. Users can walk around some
@@ -89,23 +88,27 @@ public class Game implements Serializable {
                 + "Huuuuh what an horrible smell ! What happened here ?!");
         room6 = new Room("Room 6", "A small room, with a bed, toilet and TV. "
                 + "It smells of death here");
-        
-        //TODO Description
-        kitchen = new Room("Kitchen", "");
-        cafetaria = new Room("Cafetaria", "");
-        psychologistOffice = new Room("Psychologist Office", "");
-        waitingRoom = new Room("Waiting room", "");
-        staffRoom = new Room("Staff room", "");
-        heatingRoom = new Room("Heating room", "");
-        surgery = new Room("Surgery", "It's not a very clean room, there is blood EVERYWHERE !");
-        morgue = new Room("Morgue", "");
+        kitchen = new Room("Kitchen", "A big kitchen whith many furnaces.\n"
+                + "Here you can see the process from food to eatable things they"
+                + " serve in the hospital.");
+        cafetaria = new Room("Cafetaria", "A big place with tables and chairs"
+                + " but no happiness.");
+        psychologistOffice = new Room("Psychologist Office", "A little office"
+                + " with a desk, some chairs and some posters on the wall ..."
+                + " Maybe a bird ... A monkey ?");
+        waitingRoom = new Room("Waiting room", "The famous waiting room of the hospital where you can wait few hours before a doctor call you.\n"
+                + "Ho ... There is a TV !");
+        staffRoom = new Room("Staff room", "A panel says 'Staff only'."
+                + " The heart of the hospital.");
+        heatingRoom = new Room("Heating room", "It's very HOT there.");
+        surgery = new Room("Surgery", "It's not a very clean room, there is"
+                +" blood EVERYWHERE !");
+        morgue = new Room("Morgue", "You can see dead people ...");
 
         //Creation des portes avec clés et serrures 
         //
         //
         //
-        
-        
         //Ajout des liens entre les salles
         elevator.addExit(first);
         elevator.addExit(ground);
@@ -149,37 +152,35 @@ public class Game implements Serializable {
         room1.addItem(fleur);
 
         //Création des People dans les Room
-        room1.addPeople(new People("Dr Connor"));
-        room2.addPeople(new People("GrandMa"));
-        room2.addPeople(new People("GrandPa"));
-        room3.addPeople(new People("Kevin"));
-        room4.addPeople(new People("Brenda"));
-        room4.addPeople(new People("Many guys"));
-        room5.addPeople(new People("Nurse Helene"));
-        room5.addPeople(new People("Michael")); //Diarrhea man 
-        room6.addPeople(new People("Proctologist"));
+        room1.addPeople(new People("Dr Connor","Hello world."));
+        room2.addPeople(new People("GrandMa","Ssssssh ... My husband is sleeping"));
+        room2.addPeople(new People("GrandPa","RRRRRRRRRRRRrrrrrrrrrrrrzZZZZZZZZZzzzzzzzzZZZzzzzz"));
+        room3.addPeople(new People("Kevin","Are you new here ?"));
+        room4.addPeople(new People("Brenda","Did you see my breast ?"));
+        room4.addPeople(new People("Many guys","Hey/Hello/Hi ! What do you want ? What are you doing here ? Are you a doctor ?"));
+        room5.addPeople(new People("Nurse Helene","Oh ! My ! God !"));
+        room5.addPeople(new People("Michael","Worst ! Day ! Ever !")); //Diarrhea man 
+        room6.addPeople(new People("Proctologist","Hi there !"));
         room6.addPeople(new People("Karl")); //Dead guy of an urinary tract infection
-        psychologistOffice.addPeople(new People("Psychologist"));
-        psychologistOffice.addPeople(new People("Tom")); //Crazy patient that wants to kill you
-        cafetaria.addPeople(new People("Waitress Lynda"));
-        cafetaria.addPeople(new People("Ryan")); //Hate food
-        cafetaria.addPeople(new People("Abigail")); //Like food
-        kitchen.addPeople(new People("Chef Joshua"));
-        kitchen.addPeople(new People("Cook Nancy"));
-        kitchen.addPeople(new People("Cook Edward"));
-        waitingRoom.addPeople(new People("Jean-Louis")); //The woodcutter
-        waitingRoom.addPeople(new People("Jack")); //The electrician
-               
-        
-        waitingRoom.addPeople(new People("Victoria")); //Bored
-        staffRoom.addPeople(new People("Intern George")); //Bored intern
-        staffRoom.addPeople(new People("Dr McCoy")); //Studying doctor
-        heatingRoom.addPeople(new People("Mecanician Henry")); //alcoholic
-        surgery.addPeople(new People("Chirurgian Albert"));
-        surgery.addPeople(new People("Nurse Mary"));
-        surgery.addPeople(new People("John"));
-        morgue.addPeople(new People("Medical Examiner Igor")); // Medical Examiner ?
-        morgue.addPeople(new People("Olivia")); // Patient
+        psychologistOffice.addPeople(new People("Psychologist","What do you see ?"));
+        psychologistOffice.addPeople(new People("Tom","Please ! Please ! Please ! Don't let them touch me !!! PLEASE !")); //Crazy patient that wants to kill you
+        cafetaria.addPeople(new People("Waitress Lynda","Can't you wait ?"));
+        cafetaria.addPeople(new People("Ryan","So much food.")); //Hate food
+        cafetaria.addPeople(new People("Abigail","So much food !")); //Like food
+        kitchen.addPeople(new People("Chef Joshua","This chicken is so uncooked, I still can see it cross the road !!!"));
+        kitchen.addPeople(new People("Cook Nancy","It ... Was ... Just ... A ... Chicken ..."));
+        kitchen.addPeople(new People("Cook Edward","I like espelette pepper !"));
+        waitingRoom.addPeople(new People("Jean-Louis","OMAGADOMAGADOMAGAD !!! I'M DYING !!!")); //The woodcutter
+        waitingRoom.addPeople(new People("Jack","How many electrician do you need to change a bulb ?")); //The electrician
+        waitingRoom.addPeople(new People("Victoria","'We will take care of you' they said ...")); //Bored
+        staffRoom.addPeople(new People("Intern George","Sooooooo Boring ...")); //Bored intern
+        staffRoom.addPeople(new People("Dr McCoy","I must study ! I must study, I must study ...")); //Studying doctor
+        heatingRoom.addPeople(new People("Mecanician Henry","Hic ! Hey You ! You look like a walking corpse. Bwahahahahaaaa")); //alcoholic
+        surgery.addPeople(new People("Chirurgian Albert","No time to talk."));
+        surgery.addPeople(new People("Nurse Mary","What are you doing here ?"));
+        surgery.addPeople(new People("John","I'm Jhonn."));
+        morgue.addPeople(new People("Medical Examiner Igor","Что ты здесь делаешь")); // Medical Examiner ?
+        morgue.addPeople(new People("Olivia","Staying alive, staying alive ! Ha Haa Haaa ! STAYING ALIIIIIIIIIIiiIIIIIIIIiiiiiiVE !!!")); // Patient
 
         //Création du tableau de Room utilisé pour la sauvegarde
         this.map = new Room[]{elevator, ground, basement, first, room1, room2, room3,
