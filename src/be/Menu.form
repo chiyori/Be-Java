@@ -145,6 +145,9 @@
               <Image iconType="3" name="/be/img/resume.jpg"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton3">
           <Properties>
@@ -158,6 +161,9 @@
               <Image iconType="3" name="/be/img/quit.jpg"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton3ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
