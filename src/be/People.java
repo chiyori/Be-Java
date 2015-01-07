@@ -38,6 +38,10 @@ public class People implements Serializable {
     public String getName() {
         return name;
     }
+    
+    public Boolean isNamed(String n){
+        return n==name;
+    }
 
     public Dialog getCurrentDialog() {
         return currentDialog;

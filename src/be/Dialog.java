@@ -55,6 +55,10 @@ public class Dialog {
     public TreeMap<String, Dialog> getNextDialogs() {
         return nextDialogs;
     }
+    
+    public Boolean getWantToDie(){
+        return wantToDie;
+    }
 
     /**
      * Donne un tableau des keys des dialogues suivants

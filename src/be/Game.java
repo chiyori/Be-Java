@@ -27,6 +27,9 @@ public class Game implements Serializable {
     final private transient Parser parser;
     private Player player;
     private Room[] map;
+    private int kill = 0;
+    private int goodkill = 0;
+    private int action = 250;
 
     public Room[] getMap() {
         return map;
@@ -62,6 +65,14 @@ public class Game implements Serializable {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public int getAction() {
+        return action;
+    }
+    
+    public void actionDone(){
+        action--;
     }
 
     /**
@@ -250,6 +261,8 @@ public class Game implements Serializable {
             pick(command);
         } else if (commandWord.equals("leave")) {
             leave(command);
+        } else if (commandWord.equals("kill")) {
+            kill(command);
         }
 
         return wantToQuit;
@@ -278,6 +291,7 @@ public class Game implements Serializable {
                 player.setRoom(nextRoom);
                 player.getRoom().printPossibleExits();
                 System.out.println();
+                actionDone();
             }
         } else {
             System.out.println("It's not a Room");
@@ -347,6 +361,32 @@ public class Game implements Serializable {
             System.out.println("You don't have this item!");
         } else {
             player.putdown(stringItem);
+        }
+    }
+    
+    /**
+     * 
+     */
+    private void kill (Command command){
+        if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("kill you?");
+            return;
+        }
+        String name = command.getSecondWord();
+        ArrayList<People> ps = player.getRoom().getTabPeople();
+        People ptokill = null;
+        for (People p : ps){
+            if (p.getName().equals(name)){
+                ptokill=p;
+                break;
+            }
+        }
+        if(ptokill!=null){
+            if(ptokill.getCurrentDialog().getWantToDie()){
+                goodkill++;
+            }
+            kill++;
         }
     }
 
