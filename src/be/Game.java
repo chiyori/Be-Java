@@ -264,7 +264,9 @@ public class Game implements Serializable {
             leave(command);
         } else if (commandWord.equals("kill")) {
             kill(command);
-        }
+        } else if (commandWord.equals("give")) {
+            give(command);
+        }  
 
         return wantToQuit;
     }
@@ -365,6 +367,8 @@ public class Game implements Serializable {
         }
     }
     
+    
+    
     /**
      * 
      */
@@ -388,6 +392,53 @@ public class Game implements Serializable {
                 goodkill++;
             }
             kill++;
+        }
+        else {
+            System.out.println("This personne is not in the room");
+        }
+    }
+    
+     /**
+     * 
+     */
+    private void give (Command command){
+        if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("give what who ?");
+            return;
+        } else if (!command.hasThirdWord()){
+            System.out.println("who ?");
+            return;
+        }
+        String obj = command.getSecondWord();
+        String name = command.getThirdWord();
+        ArrayList<People> ps = player.getRoom().getTabPeople();
+        People who = null;
+        for (People p : ps){
+            if (p.getName().equals(name)){
+                who=p;
+                break;
+            }
+        }
+        ArrayList<Item> is = player.getItems();
+        Item igiven = null;
+        for (Item i : is){
+            if(i.getDescription().equals(obj)){
+                igiven=i;
+                break;
+            }
+        }
+        if(who!=null||igiven!=null){
+            if(who.getCurrentDialog().getItemNeed()!=null){
+                player.removeItem(obj);
+                //NEXT DIALOG !
+            } else
+            {
+                System.out.println(who.getName()+": I don't need that !");
+            }
+        }
+        else {
+            System.out.println("This personne is not in the room or this item is not in your inventory");
         }
     }
 

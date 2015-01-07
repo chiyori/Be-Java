@@ -59,6 +59,11 @@ public class Player implements Serializable
         return items.get(index);
     }
     
+    public ArrayList<Item> getItems()
+    {
+        return items;
+    }
+    
     public void printItemsList (){
         System.out.println("Objects : ");
         for (Item i : items){
