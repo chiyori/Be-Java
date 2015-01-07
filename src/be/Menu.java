@@ -1,23 +1,33 @@
 package be;
 
+import javax.swing.JRadioButton;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Clemto
  */
 public class Menu extends javax.swing.JFrame {
-
+    private Game game;
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
     }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,10 +69,20 @@ public class Menu extends javax.swing.JFrame {
         jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
         menu.add(jRadioButton2);
         jRadioButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/be/img/resume.jpg"))); // NOI18N
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
         menu.add(jRadioButton3);
         jRadioButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/be/img/quit.jpg"))); // NOI18N
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,10 +139,41 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
+        game = new Game();
+        game.play();
+              
+        //Initialization of a new Game
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
-    /**
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        GameSave save = new GameSave();
+        boolean b = save.loadFromSerial("default.txt");
+        if (!b) { // Chargement du jeu de base, Initialisation 
+            game = new Game();
+        } else {
+            game = new Game(save.getGame());
+        }
+        game.play();
+    
+        
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+ 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.ButtonGroup menu;
+    // End of variables declaration//GEN-END:variables
+
+   /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -152,18 +203,19 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+               Menu m;
+               m = new Menu();
+               m.setVisible(true);
+         /*    if(jRadioButton1.isSelected() || jRadioButton2.isSelected()){
+                 m.setVisible(false);
+             }
+         */
             }
         });
+
+     //   GameSave save = new GameSave(game);
+     //   save.serialize("default.txt"); 
+        
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.ButtonGroup menu;
-    // End of variables declaration//GEN-END:variables
 }
