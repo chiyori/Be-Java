@@ -379,6 +379,10 @@ public class Game implements Serializable {
             return;
         }
         String name = command.getSecondWord();
+        if (command.hasThirdWord()){
+            name=name.concat(" ");
+            name=name.concat(command.getThirdWord());
+        }
         ArrayList<People> ps = player.getRoom().getTabPeople();
         People ptokill = null;
         for (People p : ps){
@@ -391,6 +395,8 @@ public class Game implements Serializable {
             if(ptokill.getCurrentDialog().getWantToDie()){
                 goodkill++;
             }
+            System.out.println("I'm killing "+ptokill.getName());
+            ptokill.setDead(Boolean.TRUE);
             kill++;
         }
         else {

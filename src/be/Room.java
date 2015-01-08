@@ -195,7 +195,9 @@ public class Room implements Serializable {
     public void printTabPeople() {
         System.out.println("Characters : ");
         for (People p : tabPeople){
+            if (p.isDead()!=true){
             System.out.println(p.getName());
+            }
         }
     }
 }
