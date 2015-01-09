@@ -111,6 +111,16 @@ public class Dialog {
     public void addDialog(String key, String paroles) {
         nextDialogs.put(key, new Dialog(paroles));
     }
+    
+        /**
+     * Ajout d'une feuille à l'arbre des dialogues
+     *
+     * @param key String 'clef' permettant l'accès au dialogue suivant.
+     * @param dialog dialogue suivant
+     */
+    public void addDialog(String key, Dialog dialog) {
+        nextDialogs.put(key, dialog);
+    }
 
     /**
      * @param key clef du dialogue demandé
