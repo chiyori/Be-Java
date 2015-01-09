@@ -266,6 +266,8 @@ public class Game implements Serializable {
             kill(command);
         } else if (commandWord.equals("give")) {
             give(command);
+        }  else if (commandWord.equals("speak")) {
+            give(command);
         }  
 
         return wantToQuit;
@@ -437,7 +439,7 @@ public class Game implements Serializable {
         if(who!=null||igiven!=null){
             if(who.getCurrentDialog().getItemNeed()!=null){
                 player.removeItem(obj);
-                //NEXT DIALOG !
+                who.setCurrentDialog(who.getCurrentDialog().nextFromKey("#"+obj));
             } else
             {
                 System.out.println(who.getName()+": I don't need that !");
