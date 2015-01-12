@@ -464,6 +464,20 @@ public class Game implements Serializable {
             name=name.concat(" ");
             name=name.concat(command.getThirdWord());
         }
+        ArrayList<People> ps = player.getRoom().getTabPeople();
+        People person = null;
+        for (People p : ps){
+            if (p.getName().equals(name)){
+                person=p;
+                break;
+            }
+        }
+        if(person!=null){
+            
+        }
+        else {
+            System.out.println("This personne is not in the room");
+        }
     }
 
 }
