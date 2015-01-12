@@ -193,6 +193,9 @@ public class Game implements Serializable {
         morgue.addPeople(new People("Medical Examiner Igor","Что ты здесь делаешь")); // Medical Examiner ?
         morgue.addPeople(new People("Olivia","Staying alive, staying alive ! Ha Haa Haaa ! STAYING ALIIIIIIIIIIiiIIIIIIIIiiiiiiVE !!!")); // Patient
 
+        //Ajout des dialogues 
+        room1.getTabPeople().get(1).getCurrentDialog().addDialog("Hello.", "");
+        
         //Création du tableau de Room utilisé pour la sauvegarde
         this.map = new Room[]{elevator, ground, basement, first, room1, room2, room3,
             room4, room5, room6, kitchen, cafetaria, psychologistOffice,
