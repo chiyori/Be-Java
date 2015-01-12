@@ -267,7 +267,7 @@ public class Game implements Serializable {
         } else if (commandWord.equals("give")) {
             give(command);
         }  else if (commandWord.equals("speak")) {
-            give(command);
+            speak(command);
         }  
 
         return wantToQuit;
@@ -377,7 +377,7 @@ public class Game implements Serializable {
     private void kill (Command command){
         if (!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-            System.out.println("kill you?");
+            System.out.println("kill who?");
             return;
         }
         String name = command.getSecondWord();
@@ -447,6 +447,19 @@ public class Game implements Serializable {
         }
         else {
             System.out.println("This personne is not in the room or this item is not in your inventory");
+        }
+    }
+    
+    private void speak (Command command){
+        if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("speak to who?");
+            return;
+        }
+        String name = command.getSecondWord();
+        if (command.hasThirdWord()){
+            name=name.concat(" ");
+            name=name.concat(command.getThirdWord());
         }
     }
 
